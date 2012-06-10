@@ -1,0 +1,5 @@
+Version 0.3
+	updated for CB 1.2.5-R3.0
+	added comments for developers
+	moved to the new config system
+	cleaned up code
