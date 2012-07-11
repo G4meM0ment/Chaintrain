@@ -14,14 +14,16 @@ chainCostsItemAmount: 1
 disabledCommandsWhileChained:
 - /tp
 - /kill
-chainedByMessage: &3You were chained by &4%chainer&3!
-chainedMessage: &3You chained &4%chained&3!
-moveWhileChainedMessage: &3You are unable to move while chained!
-dropWhileChainedMessage: &3You are unable to drop items while chained!
-interactWhileChainedMessage: &3You are unable to build while chained!
-attackWhileChainedMessage: &3You are unable to attack while chained!
-shootWhileChainedMessage: &3You are unable to shoot while chained!
-unchainedChainedMessage: &4%chained &3have been unchained!
-unchainedChainerMessage: &3You have been unchained!
-disabledCommand: &3You are not allowed to use the Command &4%command &3while chained.
-disabledCommands: &3You are not allowed to use the Command &4%command &3while chained.
+chainedByMessage: '&3You were chained by &4%chainer&3!'
+chainedMessage: '&3You chained &4%chained&3!'
+chainedOverTime: '&3You were chained by &4%chainer&3 over &4%time&3 minutes!'
+chainedVictimOverTime: '&3You chained &4%chained&3 over &4%time&3 minutes!'
+moveWhileChainedMessage: '&3You are unable to move while chained!'
+dropWhileChainedMessage: '&3You are unable to drop items while chained!'
+interactWhileChainedMessage: '&3You are unable to build while chained!'
+attackWhileChainedMessage: '&3You are unable to attack while chained!'
+shootWhileChainedMessage: '&3You are unable to shoot while chained!'
+unchainedChainedMessage: '&4%chained &3have been unchained!'
+unchainedChainerMessage: '&3You have been unchained!'
+disabledCommand: '&3You are not allowed to use the Command &4%command &3while chained.'
+disabledCommands: '&3You are not allowed to use the Command &4%command &3while chained.'

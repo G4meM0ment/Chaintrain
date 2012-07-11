@@ -73,6 +73,24 @@ public class Messages {
     	clicker.sendMessage(parseColors(Chainer));
 	}
 	
+	public static void timeChained(Player clicked, Player clicker, String stringTime)
+	{
+    	double time = Double.parseDouble(stringTime)/60000;
+    	stringTime = String.valueOf(time);
+    	String chainedOverTime = chaintrain.getConfig().getString("chainedOverTimeMessage");
+    	chainedOverTime = chainedOverTime.replace("%chained", clicked.getName());
+    	chainedOverTime = chainedOverTime.replace("%chainer", clicker.getName());
+    	chainedOverTime = chainedOverTime.replace("%time", stringTime);
+    	
+    	String chainedVictimOverTime = chaintrain.getConfig().getString("chainedVictimOverTimeMessage");
+    	chainedVictimOverTime = chainedVictimOverTime.replace("%chained", clicked.getName());
+    	chainedVictimOverTime = chainedVictimOverTime.replace("%chainer", clicker.getName());
+    	chainedVictimOverTime = chainedVictimOverTime.replace("%time", stringTime);
+    	
+    	clicked.sendMessage(parseColors(chainedOverTime));
+    	clicker.sendMessage(parseColors(chainedVictimOverTime));
+	}
+	
 	public static void unchained(Player clicked, Player clicker)
 	{
     	

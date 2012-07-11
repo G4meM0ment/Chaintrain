@@ -30,6 +30,8 @@ public class Chaintrain extends JavaPlugin {
 	}
 	
 	private final HashMap<String,String> data = new HashMap<String,String>();
+	private final HashMap<String,Long> data2 = new HashMap<String,Long>();
+	
 	public boolean isChained(String chained)
 	{
 		return data.containsKey(chained);
@@ -65,6 +67,23 @@ public class Chaintrain extends JavaPlugin {
 	{
 		data.put(player, chainer);
 	}
+	
+	public void chaintime(Player chained, Player chainer, String stringTime)
+	{
+		System.out.println("Angekommen");
+		chaintime(chained.getName(), chainer.getName(), stringTime);
+	}
+	public void chaintime(String player, String chainer, String stringTime)
+	{
+		int cooldown = Integer.parseInt(stringTime);
+		data.put(player, chainer);
+		long diff = (System.currentTimeMillis() - data2.get(player))/60000;
+		System.out.println("Debug: " + diff);
+	    if (diff < cooldown) {
+	    	unchain(player);
+	    }
+	}
+	
 	public void unchain(String player)
 	{
 		if(!isChained(player))
@@ -88,6 +107,19 @@ public class Chaintrain extends JavaPlugin {
 		 return true;
 		}
 		
+		if(command.getName().equalsIgnoreCase("chain") && args.length > 1 && (Bukkit.getPlayer(args[0]).isOnline() && (chainer.hasPermission("chaintrain.admin") || chainer.hasPermission("chaintrain.command.chain") || chainer.isOp())))
+		{
+			Player chained = chaintrain.getServer().getPlayer(args[0]);
+			String stringTime = args[1];
+			
+			System.out.println("Debug: " + args[0] + p + stringTime);
+			
+			chaintime(args[0], p, stringTime);
+			data2.put(chained.getName(), System.currentTimeMillis());
+			Messages.timeChained(chained, chainer, stringTime);
+			return true;
+		}
+		
 		if(command.getName().equalsIgnoreCase("chain") && args.length > 0 && (Bukkit.getPlayer(args[0]).isOnline() && (chainer.hasPermission("chaintrain.admin") || chainer.hasPermission("chaintrain.command.chain") || chainer.isOp())))
 		{
 			Player chained = chaintrain.getServer().getPlayer(args[0]);
@@ -101,7 +133,7 @@ public class Chaintrain extends JavaPlugin {
 			Player chained = chaintrain.getServer().getPlayer(args[0]);
 			if(chaintrain.isChained(args[0]))
 			{
-			chaintrain.unchain(args[0]);
+				chaintrain.unchain(args[0]);
 				Messages.unchained(chained, chainer);
 				return true;
 			}
