@@ -30,7 +30,7 @@ public class Chaintrain extends JavaPlugin {
 	}
 	
 	private final HashMap<String,String> data = new HashMap<String,String>();
-	private final HashMap<String,Long> data2 = new HashMap<String,Long>();
+	private final HashMap<String,String> data2 = new HashMap<String,String>();
 	
 	public boolean isChained(String chained)
 	{
@@ -77,8 +77,12 @@ public class Chaintrain extends JavaPlugin {
 	{
 		int cooldown = Integer.parseInt(stringTime);
 		data.put(player, chainer);
-		long diff = (System.currentTimeMillis() - data2.get(player))/60000;
-		System.out.println("Debug: " + diff);
+		
+		System.out.println("Debug 2: " + data2.get(player));
+		
+		long oldTime = Long.parseLong(data2.get(player));
+		long diff = (System.currentTimeMillis() - oldTime)/60000;
+		System.out.println("Debug 3: " + diff);
 	    if (diff < cooldown) {
 	    	unchain(player);
 	    }
@@ -111,11 +115,12 @@ public class Chaintrain extends JavaPlugin {
 		{
 			Player chained = chaintrain.getServer().getPlayer(args[0]);
 			String stringTime = args[1];
+			String currentTime = ""+System.currentTimeMillis();
+			data2.put(chained.getName(), currentTime);
 			
-			System.out.println("Debug: " + args[0] + p + stringTime);
+			System.out.println("Debug 1: " + args[0] + p + stringTime + ", " + currentTime);
 			
 			chaintime(args[0], p, stringTime);
-			data2.put(chained.getName(), System.currentTimeMillis());
 			Messages.timeChained(chained, chainer, stringTime);
 			return true;
 		}
