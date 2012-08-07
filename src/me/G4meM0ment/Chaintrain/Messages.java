@@ -1,65 +1,225 @@
 package me.G4meM0ment.Chaintrain;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class Messages {
 
-	static Chaintrain chaintrain;
+	Chaintrain chaintrain;
+	private static String title = "Chaintrain";
+	private static Material mat = Material.STRING;
 	
-	public Messages(Chaintrain plugin)
+	public Messages(Chaintrain chaintrain)
 	{
-		chaintrain = plugin;
+		this.chaintrain = chaintrain;
 	}
 	
 	/*
 	 * gets the message from the config, replaces the %chained/%chainer with the name of the player and sends the message
 	 */
-	public static void moveWhileChained(Player mover)
+	public void newVersion(Player player, String line)
+	{
+		PluginDescriptionFile pdf = chaintrain.getDescription();
+		String message = chaintrain.getConfig().getString("newVersionMessage");
+		message = message.replace("%oldV", pdf.getVersion()).replace("%newV", line);
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
+	}
+	
+	public void playerNotChained(Player player)
+	{
+		String message = chaintrain.getConfig().getString("playerNotChainedMessage");
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
+	}
+	
+	public void playerAlreadyChained(Player player)
+	{
+		String message = chaintrain.getConfig().getString("playerAlreadyChainedMessage");
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
+	}
+	
+	public void timeOverIn(Player player)
+	{
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		long oldTime = chaintrain.getCustomConfig().getLong("players." + player.getName() +".oldTime");
+		int cooldown = chaintrain.getCustomConfig().getInt("players." + player.getName() +".cooldown");
+		long diff = (System.currentTimeMillis() - oldTime)/60000;
+		short cooldownDiff = (short) (cooldown - diff);
+		String restTime = ""+cooldownDiff;
+		
+		if(cooldown <= 0 || oldTime <= 0)
+			restTime = "/";
+		
+		String message = chaintrain.getConfig().getString("timeOverInMessage");
+		message = message.replace("%time", restTime);
+		
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
+	}
+	
+	public void cantFindPlayer(Player player)
+	{
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		String message = chaintrain.getConfig().getString("cantFindPlayerMessage");
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
+	}
+	
+	public void chaining(Player player, int timer)
+	{
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		String message = chaintrain.getConfig().getString("chainingMessage");
+		String time = String.valueOf(timer);
+		message = message.replace("%timer", time);
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
+	}
+	public void getChained(Player player, int timer)
+	{
+		String message = chaintrain.getConfig().getString("getChainedMessage");
+		String time = String.valueOf(timer);
+		message = message.replace("%timer", time);
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
+	}
+	
+	public void moveWhileChained(Player player)
 	{		
-    	String Move = chaintrain.getConfig().getString("moveWhileChainedMessage");
+    	String message = chaintrain.getConfig().getString("moveWhileChainedMessage");
     	//replaces the %chained in the message with the name of the player
-    	Move = Move.replace("%chained", mover.getName());    	
-		mover.sendMessage(parseColors(Move));
+    	message = message.replace("%chained", player.getName());    	
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
 	}
 	
-	public static void dropWhileChained(Player dropper)
+	public void dropWhileChained(Player player)
 	{
-    	String Drop = chaintrain.getConfig().getString("dropWhileChainedMessage");
-    	Drop = Drop.replace("%chained", dropper.getName());
-		dropper.sendMessage(parseColors(Drop));
+    	String message = chaintrain.getConfig().getString("dropWhileChainedMessage");
+        message = message.replace("%chained", player.getName());
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
 	}
 	
-	public static void attackWhileChained(Player damager)
+	public void attackWhileChained(Player player)
 	{
-    	String Damage = chaintrain.getConfig().getString("attackWhileChainedMessage");
-    	Damage = Damage.replace("%chained", damager.getName());
-		damager.sendMessage(parseColors(Damage));
+    	String message = chaintrain.getConfig().getString("attackWhileChainedMessage");
+    	message = message.replace("%chained", player.getName());
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
 	}
 	
-	public static void interactWhileChained(Player interacter)
+	public void interactWhileChained(Player player)
 	{
-    	String Interact = chaintrain.getConfig().getString("interactWhileChainedMessage");
-    	Interact = Interact.replace("%chained", interacter.getName());
-		interacter.sendMessage(parseColors(Interact));
+    	String message = chaintrain.getConfig().getString("interactWhileChainedMessage");
+    	message = message.replace("%chained", player.getName());
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
 	}
 	
-	public static void shootWhileChained(Player shooter)
+	public void shootWhileChained(Player player)
 	{
-    	String Shoot = chaintrain.getConfig().getString("shootWhileChainedMessage");
-    	Shoot = Shoot.replace("%chained", shooter.getName());
-		shooter.sendMessage(parseColors(Shoot));
+    	String message = chaintrain.getConfig().getString("shootWhileChainedMessage");
+    	message = message.replace("%chained", player.getName());
+		SpoutPlayer sp = SpoutManager.getPlayer(player);
+		if(chaintrain.getConfig().getBoolean("useSpout") && sp.isSpoutCraftEnabled() && message.length() < 26)
+		{
+			sp.sendNotification(title, parseColors(message), mat);
+		}
+		else
+		{
+			player.sendMessage(parseColors(message));
+		}
 	}
 	
-	public static void disabledCommand(Player chained, String command)
+	public void disabledCommand(Player player, String command)
 	{
-		String useCommand = chaintrain.getConfig().getString("disabledCommand");
-		useCommand = useCommand.replace("%chained", chained.getName());
-		useCommand = useCommand.replace("%command", command);
-		chained.sendMessage(parseColors(useCommand));
+		String message = chaintrain.getConfig().getString("disabledCommand");
+		message = message.replace("%chained", player.getName());
+		message = message.replace("%command", command);
+		player.sendMessage(parseColors(message));
 	}
 	
-	public static void chained(Player clicked, Player clicker)
+	public void chained(Player clicked, Player clicker)
 	{		
     	String Chained = chaintrain.getConfig().getString("chainedByMessage");
     	Chained = Chained.replace("%chained", clicked.getName());
@@ -73,10 +233,8 @@ public class Messages {
     	clicker.sendMessage(parseColors(Chainer));
 	}
 	
-	public static void timeChained(Player clicked, Player clicker, String stringTime)
+	public void timeChained(Player clicked, Player clicker, String stringTime)
 	{
-    	double time = Double.parseDouble(stringTime)/60000;
-    	stringTime = String.valueOf(time);
     	String chainedOverTime = chaintrain.getConfig().getString("chainedOverTimeMessage");
     	chainedOverTime = chainedOverTime.replace("%chained", clicked.getName());
     	chainedOverTime = chainedOverTime.replace("%chainer", clicker.getName());
@@ -91,7 +249,13 @@ public class Messages {
     	clicker.sendMessage(parseColors(chainedVictimOverTime));
 	}
 	
-	public static void unchained(Player clicked, Player clicker)
+	public void timeOver(Player player)
+	{
+		String timeOver = chaintrain.getConfig().getString("timeOverMessage");
+		player.sendMessage(parseColors(timeOver));
+	}
+	
+	public void unchained(Player clicked, Player clicker)
 	{
     	
     	String UnchainedChainer = chaintrain.getConfig().getString("unchainedChainedMessage");

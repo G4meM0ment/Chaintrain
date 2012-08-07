@@ -1,19 +1,20 @@
 name: Chaintrain
 main: me.G4meM0ment.Chaintrain.Chaintrain
-version: 0.3
+version: 1.0
+softdepend: [Spout]
 commands:
    chaintrain:
        description: Reloads the config.yml
-       usage: /chaintrain reload
+       usage: /chaintrain help
    chain:
        description: Chains a player via command
-       usage: /chain <player>
+       usage: /chaintrain help
    unchain:
        description: Unchains a chained player via command
-       usage: /unchain <player>
+       usage: /chaintrain help
    chainall:
        description: Chains all players online
-       usage: /chainall
+       usage: /chaintrain help
    unchainall:
        description: Unchain all players online
-       usage: /unchainall
+       usage: /chaintrain help
