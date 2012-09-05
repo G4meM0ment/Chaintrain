@@ -1,0 +1,57 @@
+#                                                #
+#                   CHAINTRAIN                   #
+#                                                #
+# Use %chainer as the name of the player who     #
+# chained another and %chained for the name of   #
+# the player who got chained.                    #
+# You can use the normal mc colorcodes to use    #
+# colors in the messages  for spout less then    #
+# 26 chars.                                      #
+#                                                #
+
+chainItem: '287'
+chainCostsItem: true
+chainCostsItemAmount: 1
+chainTimer: false
+timer: 3
+chainSound: http://www.oocities.org/holdaysbyerin2002/Halloween/Wavs/SoundEffects/chain.wav
+disabledCommandsWhileChained:
+- /tp
+- /kill
+broadcastNewBounty: false
+minBountyAmount: 100
+checkVersion: true
+autoDetectSpout: true
+useSpout: false
+newVersion: '&3New Version of Chaintrain is available: &4%v'
+notEnoughMoney: '&3Not enough money to set a bounty.'
+minMoney: '&3You need to set &4%m &3minimal for an bounty.'
+newBounty: '&3A new bounty has been exposed.'
+bountyExposed: '&3Your bounty has been exposed.'
+bountyFinished: '&3You finished the bounty on &4%p&3, your reward: &4%m'
+bountyAccepted: '&3Bounty accepted.'
+bountyCanceled: '&3Bounty canceled.'
+bountyAlreadyAccepted: '&3You already accepted this bounty.'
+bountyNotAccepted: 'You dont have this bounty accepted.'
+notEnoughMoney: '&3Not enough money to set up an bounty.'
+playerNotChained: '&3Player not chained.'
+playerAlreadyChained: '&3Player already chained.'
+timeOverIn: '&3Minutes left: &4%t'
+cantFindPlayer: '&3Cant find player.'
+chaining: '&3Chaining... &4%tr'
+getChained: '&3You get chained... &4%tr'
+moveWhileChained: '&3Unable to move.'
+dropWhileChained: '&3Unable to drop items.'
+attackWhileChained: '&3Unable to attack.'
+interactWhileChained: '&3Unable to interact.'
+shootWhileChained: '&3Unable to shoot while chained.'
+disabledCommand: '&3Cant use this command while chained.'
+allChained: '&3All players online now chained.'
+allUnchained: '&3All players online now unchained.'
+chained: '&3You chained &4%p.'
+chainedBy: '&3Chained by &4%p.'
+chainedOverTime: '&3Chained by &4%p &3over &4%t min.'
+chainedVictimOverTime: '&3Chained &4%p &3over &4%t min.'
+timeOver: '&3Time over - unchained.'
+unchainedChained: '&4%p &3have been unchained.'
+unchainedChainer: '&3Unchained by &4%p.'
