@@ -13,7 +13,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class BountyListener implements Listener {
@@ -25,18 +24,17 @@ public class BountyListener implements Listener {
 		}
 		
 		@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
-		public void onEntityDamage(EntityDamageEvent event) {
+		public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
 			
 			if(!(event.getEntity() instanceof Player)) return;
 			
-		    EntityDamageByEntityEvent newevent = (EntityDamageByEntityEvent) event;
-		    Entity entity = newevent.getDamager();
+		    Entity entity = event.getDamager();
 		    Player p = (Player) event.getEntity();
 		    
 		    if(event.getCause().toString().equals("ENTITY_ATTACK")) {
-		    	if(entity instanceof Player) data.put(p, (Player) newevent.getDamager());
-		    	if(entity instanceof Arrow) data.put(p, (Player) ((Arrow)newevent.getDamager()).getShooter());
-		    	if(entity instanceof ThrownPotion) data.put(p, (Player) ((ThrownPotion)newevent.getDamager()).getShooter());
+		    	if(entity instanceof Player) data.put(p, (Player) event.getDamager());
+		    	if(entity instanceof Arrow) data.put(p, (Player) ((Arrow)event.getDamager()).getShooter());
+		    	if(entity instanceof ThrownPotion) data.put(p, (Player) ((ThrownPotion)event.getDamager()).getShooter());
 		    }
 		}
 		

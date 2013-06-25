@@ -1,6 +1,6 @@
 name: Chaintrain
 main: me.G4meM0ment.Chaintrain.Chaintrain
-version: 2.0
+version: 2.0.01
 depend: [Vault]
 softdepend: [Spout]
 commands:
